@@ -35,3 +35,27 @@ let arrayDeDicionariosDeTuplasDeArrays: [[String: ([Int], [String])]] = [["tupla
 
 print(1 + 1)
 print("Olá \(nome), você tem \(idade) anos e mede \(altura)")
+
+// -------------------
+// Ex pocao magica
+if let n = Int(readLine() ?? "") {
+    let palavra = n == 1 ? "ingrediente mágico" : "ingredientes mágicos"
+    print("Você usou \(n) \(palavra).")
+} else {
+    print("Entrada inválida.")
+}
+
+// Ex senha
+if let senha = readLine(), !senha.isEmpty {
+    print("Nova senha definida: \(senha)")
+} else {
+    print("Erro: nenhuma senha fornecida!")
+}
+
+// Poco
+if let x = Int(readLine() ?? "") {
+    print("O poço aceitou sua oferenda: \(x)")
+} else {
+    print("O poço ignorou palavras vazias...")
+}
+
