@@ -57,13 +57,21 @@ import Foundation
 // 	print("Mestre")
 // }
 
-// 4
-let a = Int(readLine() ?? "") ?? 0
-let b = Int(readLine() ?? "") ?? 0
-if a == b {
-	print("Empate Místico!")
-} else if a == 1 && b == 3 || a == 2 && b == 1 || a == 3 && b == 2 {
-	print("Você venceu o duelo!")
+// // 4
+// let a = Int(readLine() ?? "") ?? 0
+// let b = Int(readLine() ?? "") ?? 0
+// if a == b {
+// 	print("Empate Místico!")
+// } else if a == 1 && b == 3 || a == 2 && b == 1 || a == 3 && b == 2 {
+// 	print("Você venceu o duelo!")
+// } else {
+// 	print("O Mago Ancião venceu!")
+// }
+
+// 5
+let n = Int(readLine() ?? "") ?? 0
+if(n >= 5) {
+	print("Pode entrar na masmorra!")
 } else {
-	print("O Mago Ancião venceu!")
+	print("Ainda nao esta pronto...")
 }
