@@ -95,17 +95,32 @@ import Foundation
 // 	print("Voce nao pode comprar nada.")
 // }
 
-// 8
-let jogador = readLine() ?? ""
-switch jogador {
-case "Guerreiro":
-	print("Habilidade: Golpe Devastador")
-case "Mago":
-	print("Habilidade: Bola de Fogo")
-case "Arqueiro":
-	print("Habilidade: Flecha Perfurante")
-case "Ladino":
-	print("Habilidade: Ataque Furtivo")
+// // 8
+// let jogador = readLine() ?? ""
+// switch jogador {
+// case "Guerreiro":
+// 	print("Habilidade: Golpe Devastador")
+// case "Mago":
+// 	print("Habilidade: Bola de Fogo")
+// case "Arqueiro":
+// 	print("Habilidade: Flecha Perfurante")
+// case "Ladino":
+// 	print("Habilidade: Ataque Furtivo")
+// default:
+// 	print("Classe invalida")
+// }
+
+// 9
+let dificuldade = readLine() ?? ""
+switch dificuldade {
+case "Facil":
+	print("Recompensa: 50 moedas")
+case "Medio":
+	print("Recompensa: 100 moedas e uma pocao")
+case "Dificil":
+	print("Recompensa: 200 moedas e um item raro")
+case "Lendario":
+	print("Recompensa: 500 moedas, um item lendario e titulo especial")
 default:
-	print("Classe invalida")
+	print("Dificuldade invalida")
 }
