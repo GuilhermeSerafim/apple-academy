@@ -68,10 +68,18 @@ import Foundation
 // 	print("O Mago Ancião venceu!")
 // }
 
-// 5
+// // 5
+// let n = Int(readLine() ?? "") ?? 0
+// if(n >= 5) {
+// 	print("Pode entrar na masmorra!")
+// } else {
+// 	print("Ainda nao esta pronto...")
+// }
+
+// 6
 let n = Int(readLine() ?? "") ?? 0
-if(n >= 5) {
-	print("Pode entrar na masmorra!")
+if(n <= 50) {
+	print("Siga pelo caminho da esquerda.")
 } else {
-	print("Ainda nao esta pronto...")
+	print("Siga pelo caminho da direita.")
 }
