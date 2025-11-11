@@ -46,13 +46,24 @@ import Foundation
 
 // 3
 
-let x = Int(readLine() ?? "") ?? 0
-if x <= 9 {
-	print("Iniciante")
-} else if x <= 19 {
-	print("Aprendiz")
-} else if x <= 29 {
-	print("Experiente")
+// let x = Int(readLine() ?? "") ?? 0
+// if x <= 9 {
+// 	print("Iniciante")
+// } else if x <= 19 {
+// 	print("Aprendiz")
+// } else if x <= 29 {
+// 	print("Experiente")
+// } else {
+// 	print("Mestre")
+// }
+
+// 4
+let a = Int(readLine() ?? "") ?? 0
+let b = Int(readLine() ?? "") ?? 0
+if a == b {
+	print("Empate Místico!")
+} else if a == 1 && b == 3 || a == 2 && b == 1 || a == 3 && b == 2 {
+	print("Você venceu o duelo!")
 } else {
-	print("Mestre")
+	print("O Mago Ancião venceu!")
 }
