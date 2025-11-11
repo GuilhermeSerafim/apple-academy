@@ -1,0 +1,111 @@
+# ========================================
+# ⚙️ Sistema & IDEs
+# ========================================
+# Arquivos do VS Code
+.vscode/
+.history/
+.settings/
+*.code-workspace
+
+# Arquivos do macOS e Linux
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+Icon?
+.Trashes
+*~
+.cache/
+.temp/
+tmp/
+logs/
+
+# Arquivos de backup temporário
+*.swp
+*.swo
+*.bak
+*.tmp
+*.old
+*.log
+
+# ========================================
+# 🧠 Swift Package Manager (SPM)
+# ========================================
+.build/
+.swiftpm/
+Package.resolved
+DerivedData/
+.xcodeproj/
+.xcworkspace/
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+
+# ========================================
+# 🧱 Binários e Compilados
+# ========================================
+*.o
+*.so
+*.dylib
+*.dll
+*.exe
+*.out
+
+# ========================================
+# 🧪 Testes e Cobertura
+# ========================================
+*.xctest
+*.profdata
+*.coverage
+*.gcda
+*.gcno
+*.gcov
+Reports/
+coverage/
+
+# ========================================
+# 🧰 Ferramentas e Ambientes
+# ========================================
+# Swift baixado manualmente
+swift-*-RELEASE-ubuntu*.tar.gz
+swift-*-RELEASE-ubuntu*/
+# Snap, apt ou builds locais
+/usr/bin/swift
+/usr/lib/swift/
+/usr/include/swift/
+
+# Python ou Node em Codespaces
+venv/
+node_modules/
+__pycache__/
+*.pyc
+*.pyo
+
+# ========================================
+# 🧳 Codespaces / Containers
+# ========================================
+.devcontainer/
+.gitpod.yml
+Dockerfile
+docker-compose.yml
+*.env
+.env.local
+.env.*
+!.env.example
+
+# ========================================
+# 🧩 Outros opcionais
+# ========================================
+# Logs e outputs
+*.log
+*.pid
+nohup.out
+output/
+dist/
+build/
+cache/
+
+# Dumps e reports
+*.dmp
+*.stackdump
+*.crash
