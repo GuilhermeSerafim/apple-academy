@@ -76,10 +76,21 @@ import Foundation
 // 	print("Ainda nao esta pronto...")
 // }
 
-// 6
+// // 6
+// let n = Int(readLine() ?? "") ?? 0
+// if(n <= 50) {
+// 	print("Siga pelo caminho da esquerda.")
+// } else {
+// 	print("Siga pelo caminho da direita.")
+// }
+
+// 7
+let m = Int(readLine() ?? "") ?? 0
 let n = Int(readLine() ?? "") ?? 0
-if(n <= 50) {
-	print("Siga pelo caminho da esquerda.")
+if m >= 100 && n >= 10 {
+	print("Voce pode comprar: Pocao Rara")
+} else if m >= 50 || n >= 5 {
+	print("Voce pode comprar: Espada Comum")
 } else {
-	print("Siga pelo caminho da direita.")
+	print("Voce nao pode comprar nada.")
 }
