@@ -84,13 +84,28 @@ import Foundation
 // 	print("Siga pelo caminho da direita.")
 // }
 
-// 7
-let m = Int(readLine() ?? "") ?? 0
-let n = Int(readLine() ?? "") ?? 0
-if m >= 100 && n >= 10 {
-	print("Voce pode comprar: Pocao Rara")
-} else if m >= 50 || n >= 5 {
-	print("Voce pode comprar: Espada Comum")
-} else {
-	print("Voce nao pode comprar nada.")
+// // 7
+// let m = Int(readLine() ?? "") ?? 0
+// let n = Int(readLine() ?? "") ?? 0
+// if m >= 100 && n >= 10 {
+// 	print("Voce pode comprar: Pocao Rara")
+// } else if m >= 50 || n >= 5 {
+// 	print("Voce pode comprar: Espada Comum")
+// } else {
+// 	print("Voce nao pode comprar nada.")
+// }
+
+// 8
+let jogador = readLine() ?? ""
+switch jogador {
+case "Guerreiro":
+	print("Habilidade: Golpe Devastador")
+case "Mago":
+	print("Habilidade: Bola de Fogo")
+case "Arqueiro":
+	print("Habilidade: Flecha Perfurante")
+case "Ladino":
+	print("Habilidade: Ataque Furtivo")
+default:
+	print("Classe invalida")
 }
