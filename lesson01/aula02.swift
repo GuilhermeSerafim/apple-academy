@@ -1,4 +1,4 @@
-    
+import Foundation
     
 // let x = Int(readLine() ?? "") ?? 0
 // if x >= 18 {
@@ -10,35 +10,49 @@
 
 
 // 2
-import Foundation
 
-let d = Int(readLine() ?? "") ?? 0
-let c = Int(readLine() ?? "") ?? 0
+// let d = Int(readLine() ?? "") ?? 0
+// let c = Int(readLine() ?? "") ?? 0
 
-if(d <= 3) {
-	print("a pé")
-} else if(d <= 20) {
-	if(c >= 1) {
-		print("cavalo")
-		exit(0)
-	} else {
-		print("Não é possível viajar")
-		exit(0)
-	}
-} else if(d <= 100) {
-	if(c >= 2) {
-		print("carro mágico")
-		exit(0)
-	} else {
-		print("Não é possível viajar")
-		exit(0)
-	}
+// if(d <= 3) {
+// 	print("a pé")
+// } else if(d <= 20) {
+// 	if(c >= 1) {
+// 		print("cavalo")
+// 		exit(0)
+// 	} else {
+// 		print("Não é possível viajar")
+// 		exit(0)
+// 	}
+// } else if(d <= 100) {
+// 	if(c >= 2) {
+// 		print("carro mágico")
+// 		exit(0)
+// 	} else {
+// 		print("Não é possível viajar")
+// 		exit(0)
+// 	}
+// } else {
+// 	if(c >= 5) {
+// 		print("teletransporte")
+// 		exit(0)
+// 	} else {
+// 		print("Não é possível viajar")
+// 		exit(0)
+// 	}
+// }
+
+
+
+// 3
+
+let x = Int(readLine() ?? "") ?? 0
+if x <= 9 {
+	print("Iniciante")
+} else if x <= 19 {
+	print("Aprendiz")
+} else if x <= 29 {
+	print("Experiente")
 } else {
-	if(c >= 5) {
-		print("teletransporte")
-		exit(0)
-	} else {
-		print("Não é possível viajar")
-		exit(0)
-	}
+	print("Mestre")
 }
