@@ -161,7 +161,7 @@ func calcularDano(_ nivelHeroi: Int, _ forcaHeroi: Int, _ nivelMonstro: Int, _ f
     } else {
         vence = false
     }
-    return (vence, danoHeroi, danoMonstro)
+    return (resultado, danoHeroi, danoMonstro)
 }
 func calculaRecompensa(_ nivelMonstro: Int) -> (xp: Int, moedas: Int) {
     let xp = nivelMonstro * 50
@@ -180,4 +180,4 @@ do {
     print("Erro: Nivel do heroi insuficiente para enfrentar o monstro")
 } catch {
     print("Erro desconhecido")
-} 
+}
