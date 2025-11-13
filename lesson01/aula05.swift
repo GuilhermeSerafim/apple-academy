@@ -78,30 +78,61 @@
 // print("Vida apos pocao: \(usarPocao(vidaAtual: vidaAtual, vidaMaxima: vidaMaxima, cura: curaPocao))")
 
 // Exercício 8
-enum EquipamentoErro: Error { case nivelInsuficiente, forcaInsuficiente }
-let x = readLine()!.split(separator: " ").map { Int($0)! }
-let y = readLine()!.split(separator: " ").map { Int($0)! }
-let n = x[0]
-let f = x[1]
-let nr = y[0]
-let fr = y[1]
+// enum EquipamentoErro: Error { case nivelInsuficiente, forcaInsuficiente }
+// let x = readLine()!.split(separator: " ").map { Int($0)! }
+// let y = readLine()!.split(separator: " ").map { Int($0)! }
+// let n = x[0]
+// let f = x[1]
+// let nr = y[0]
+// let fr = y[1]
 
-func checkEquipamento(nivelPersonagem: Int, forcaPersonagem: Int, nivelRequerido: Int, forcaRequerida: Int) throws -> String {
-    if(forcaPersonagem < forcaRequerida) {
-        throw EquipamentoErro.forcaInsuficiente
+// func checkEquipamento(nivelPersonagem: Int, forcaPersonagem: Int, nivelRequerido: Int, forcaRequerida: Int) throws -> String {
+//     if(forcaPersonagem < forcaRequerida) {
+//         throw EquipamentoErro.forcaInsuficiente
+//     }
+//     if(nivelPersonagem < nivelRequerido) {
+//         throw EquipamentoErro.nivelInsuficiente
+//     }
+//     return "Equipamento validado com sucesso"
+// }
+// do {
+//     let resultado = try checkEquipamento(nivelPersonagem: n, forcaPersonagem: f, nivelRequerido: nr, forcaRequerida: fr)
+//     print(resultado)
+// } catch EquipamentoErro.forcaInsuficiente {
+//     print("Erro: Forca insuficiente")
+// } catch EquipamentoErro.nivelInsuficiente {
+//     print("Erro: Nivel insuficiente")
+// } catch {
+//     print("Erro desconhecido")
+// }
+
+// Exercício 9
+enum RequisitoErro: Error { case nivelInsuficiente, missoesInsuficientes, ouroInsuficiente }
+let req = readLine()!.split(separator: " ").map { Int($0)! }
+let n = req[0]
+let m = req[1]
+let o = req[2]
+func valid(_ nivel: Int, _ missoesCompletas: Int, _ ouro: Int) throws -> String {
+    if(nivel < 20) {
+        throw RequisitoErro.nivelInsuficiente
     }
-    if(nivelPersonagem < nivelRequerido) {
-        throw EquipamentoErro.nivelInsuficiente
+    if(missoesCompletas < 5) {
+        throw RequisitoErro.missoesInsuficientes
     }
-    return "Equipamento validado com sucesso"
+    if(ouro < 1000) {
+        throw RequisitoErro.ouroInsuficiente
+    }
+    return "Missao epica aceita! Boa sorte, heroi!"
 }
 do {
-    let resultado = try checkEquipamento(nivelPersonagem: n, forcaPersonagem: f, nivelRequerido: nr, forcaRequerida: fr)
+    let resultado = try valid(n, m, o)
     print(resultado)
-} catch EquipamentoErro.forcaInsuficiente {
-    print("Erro: Forca insuficiente")
-} catch EquipamentoErro.nivelInsuficiente {
-    print("Erro: Nivel insuficiente")
+} catch RequisitoErro.nivelInsuficiente {
+    print("Erro: Nivel minimo nao atingido")
+} catch RequisitoErro.missoesInsuficientes {
+    print("Erro: Experiencia insuficiente em missoes")
+} catch RequisitoErro.ouroInsuficiente {
+    print("Erro: Ouro insuficiente")
 } catch {
     print("Erro desconhecido")
 }
