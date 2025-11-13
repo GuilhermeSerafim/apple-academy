@@ -66,13 +66,42 @@
 // }
 
 // Exercício 7
-let vidaAtual = Int(readLine()!)!
-let vidaMaxima = Int(readLine()!)!
-let curaPocao = Int(readLine()!)!
-func usarPocao(vidaAtual: Int, vidaMaxima: Int, cura: Int) -> Int {
-    let curaEfetiva = cura > 0 ? cura : 50
-    // retorna o valor minimo entre vidaAtual + curaEfetiva e vidaMaxima
-    let novaVida = min(vidaAtual + curaEfetiva, vidaMaxima)
-    return novaVida
+// let vidaAtual = Int(readLine()!)!
+// let vidaMaxima = Int(readLine()!)!
+// let curaPocao = Int(readLine()!)!
+// func usarPocao(vidaAtual: Int, vidaMaxima: Int, cura: Int) -> Int {
+//     let curaEfetiva = cura > 0 ? cura : 50
+//     // retorna o valor minimo entre vidaAtual + curaEfetiva e vidaMaxima
+//     let novaVida = min(vidaAtual + curaEfetiva, vidaMaxima)
+//     return novaVida
+// }
+// print("Vida apos pocao: \(usarPocao(vidaAtual: vidaAtual, vidaMaxima: vidaMaxima, cura: curaPocao))")
+
+// Exercício 8
+enum EquipamentoErro: Error { case nivelInsuficiente, forcaInsuficiente }
+let x = readLine()!.split(separator: " ").map { Int($0)! }
+let y = readLine()!.split(separator: " ").map { Int($0)! }
+let n = x[0]
+let f = x[1]
+let nr = y[0]
+let fr = y[1]
+
+func checkEquipamento(nivelPersonagem: Int, forcaPersonagem: Int, nivelRequerido: Int, forcaRequerida: Int) throws -> String {
+    if(forcaPersonagem < forcaRequerida) {
+        throw EquipamentoErro.forcaInsuficiente
+    }
+    if(nivelPersonagem < nivelRequerido) {
+        throw EquipamentoErro.nivelInsuficiente
+    }
+    return "Equipamento validado com sucesso"
 }
-print("Vida apos pocao: \(usarPocao(vidaAtual: vidaAtual, vidaMaxima: vidaMaxima, cura: curaPocao))")
+do {
+    let resultado = try checkEquipamento(nivelPersonagem: n, forcaPersonagem: f, nivelRequerido: nr, forcaRequerida: fr)
+    print(resultado)
+} catch EquipamentoErro.forcaInsuficiente {
+    print("Erro: Forca insuficiente")
+} catch EquipamentoErro.nivelInsuficiente {
+    print("Erro: Nivel insuficiente")
+} catch {
+    print("Erro desconhecido")
+}
