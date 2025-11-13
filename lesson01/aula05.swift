@@ -107,32 +107,77 @@
 // }
 
 // Exercício 9
-enum RequisitoErro: Error { case nivelInsuficiente, missoesInsuficientes, ouroInsuficiente }
-let req = readLine()!.split(separator: " ").map { Int($0)! }
-let n = req[0]
-let m = req[1]
-let o = req[2]
-func valid(_ nivel: Int, _ missoesCompletas: Int, _ ouro: Int) throws -> String {
-    if(nivel < 20) {
-        throw RequisitoErro.nivelInsuficiente
+// enum RequisitoErro: Error { case nivelInsuficiente, missoesInsuficientes, ouroInsuficiente }
+// let req = readLine()!.split(separator: " ").map { Int($0)! }
+// let n = req[0]
+// let m = req[1]
+// let o = req[2]
+// func valid(_ nivel: Int, _ missoesCompletas: Int, _ ouro: Int) throws -> String {
+//     if(nivel < 20) {
+//         throw RequisitoErro.nivelInsuficiente
+//     }
+//     if(missoesCompletas < 5) {
+//         throw RequisitoErro.missoesInsuficientes
+//     }
+//     if(ouro < 1000) {
+//         throw RequisitoErro.ouroInsuficiente
+//     }
+//     return "Missao epica aceita! Boa sorte, heroi!"
+// }
+// do {
+//     let resultado = try valid(n, m, o)
+//     print(resultado)
+// } catch RequisitoErro.nivelInsuficiente {
+//     print("Erro: Nivel minimo nao atingido")
+// } catch RequisitoErro.missoesInsuficientes {
+//     print("Erro: Experiencia insuficiente em missoes")
+// } catch RequisitoErro.ouroInsuficiente {
+//     print("Erro: Ouro insuficiente")
+// } catch {
+//     print("Erro desconhecido")
+// }
+
+// Exercício 10
+enum CombateErro: Error { case nivelHeroiBaixo }
+let nfh = readLine()!
+    .split(separator: " ")
+    .map { Int($0)! }
+let nh = nfh[0]
+let fh = nfh[1]
+let nfm = readLine()!
+    .split(separator: " ")
+    .map { Int($0)! }
+let nm = nfm[0]
+let fm = nfm[1]
+func calcularDano(_ nivelHeroi: Int, _ forcaHeroi: Int, _ nivelMonstro: Int, _ forcaMonstro: Int) throws -> (vence: Bool, danoHeroi: Int, danoMonstro: Int) {
+    if(nivelHeroi < nivelMonstro) {
+        throw CombateErro.nivelHeroiBaixo
     }
-    if(missoesCompletas < 5) {
-        throw RequisitoErro.missoesInsuficientes
+    let danoHeroi = forcaHeroi * 2
+    let danoMonstro = forcaMonstro * 2
+    let vence: Bool
+    if(danoHeroi >= danoMonstro) {
+        vence = true
+    } else {
+        vence = false
     }
-    if(ouro < 1000) {
-        throw RequisitoErro.ouroInsuficiente
-    }
-    return "Missao epica aceita! Boa sorte, heroi!"
+    return (vence, danoHeroi, danoMonstro)
+}
+func calculaRecompensa(_ nivelMonstro: Int) -> (xp: Int, moedas: Int) {
+    let xp = nivelMonstro * 50
+    let moedas = nivelMonstro * 20
+    return (xp, moedas)
 }
 do {
-    let resultado = try valid(n, m, o)
-    print(resultado)
-} catch RequisitoErro.nivelInsuficiente {
-    print("Erro: Nivel minimo nao atingido")
-} catch RequisitoErro.missoesInsuficientes {
-    print("Erro: Experiencia insuficiente em missoes")
-} catch RequisitoErro.ouroInsuficiente {
-    print("Erro: Ouro insuficiente")
+    let (vence, danoHeroi, danoMonstro) = try calcularDano(nh, fh, nm, fm)
+    let (xp, moedas) = calculaRecompensa(nm)
+    if(!vence) {
+        print("Derrota! Dano causado: \(danoHeroi), Dano recebido: \(danoMonstro)")
+    } else {
+        print("Vitoria! Dano causado: \(danoHeroi), Dano recebido: \(danoMonstro), Recompensas: \(xp) XP e \(moedas) moedas")
+    }
+} catch CombateErro.nivelHeroiBaixo {
+    print("Erro: Nivel do heroi insuficiente para enfrentar o monstro")
 } catch {
     print("Erro desconhecido")
 }
