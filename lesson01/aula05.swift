@@ -51,16 +51,28 @@
 // print("Venceu \(nomeInimigo)! Ganhou \(xp) XP e \(moedas) moedas")
 
 // Exercício 6
-let nivelAtual = Int(readLine()!)!
-let experienciaAtual = Int(readLine()!)!
-func calcExperienciaParaSubirNivel(nivel: Int, experiencia: Int) -> Int {
-    let xpNecessaria = nivel * 100
-    let xpFaltante = xpNecessaria - experiencia
-    return xpFaltante
+// let nivelAtual = Int(readLine()!)!
+// let experienciaAtual = Int(readLine()!)!
+// func calcExperienciaParaSubirNivel(nivel: Int, experiencia: Int) -> Int {
+//     let xpNecessaria = nivel * 100
+//     let xpFaltante = xpNecessaria - experiencia
+//     return xpFaltante
+// }
+// let  xpFaltante = calcExperienciaParaSubirNivel(nivel: nivelAtual, experiencia: experienciaAtual)
+// if(xpFaltante <= 0) {
+//     print("Pode subir para o nivel \(nivelAtual + 1)!")
+// } else {
+//     print("Precisa de \(xpFaltante) XP para subir de nivel")
+// }
+
+// Exercício 7
+let vidaAtual = Int(readLine()!)!
+let vidaMaxima = Int(readLine()!)!
+let curaPocao = Int(readLine()!)!
+func usarPocao(vidaAtual: Int, vidaMaxima: Int, cura: Int) -> Int {
+    let curaEfetiva = cura > 0 ? cura : 50
+    // retorna o valor minimo entre vidaAtual + curaEfetiva e vidaMaxima
+    let novaVida = min(vidaAtual + curaEfetiva, vidaMaxima)
+    return novaVida
 }
-let  xpFaltante = calcExperienciaParaSubirNivel(nivel: nivelAtual, experiencia: experienciaAtual)
-if(xpFaltante <= 0) {
-    print("Pode subir para o nivel \(nivelAtual + 1)!")
-} else {
-    print("Precisa de \(xpFaltante) XP para subir de nivel")
-}
+print("Vida apos pocao: \(usarPocao(vidaAtual: vidaAtual, vidaMaxima: vidaMaxima, cura: curaPocao))")
