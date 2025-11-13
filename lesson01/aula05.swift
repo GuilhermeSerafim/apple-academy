@@ -39,13 +39,28 @@
 
 // print("Heroi: \(nomeHeroi) - Vida: \(vida), Mana: \(mana), Forca: \(forca)")
 // Exercício 5
-let nomeInimigo = readLine()!
-let nivelInimigo = Int(readLine()!)!
-func calcularRecompensas(nivel: Int) -> (xp: Int, moedas: Int
-) {
-    let xp = nivel * 10
-    let moedas = nivel * 5
-    return (xp, moedas)
+// let nomeInimigo = readLine()!
+// let nivelInimigo = Int(readLine()!)!
+// func calcularRecompensas(nivel: Int) -> (xp: Int, moedas: Int
+// ) {
+//     let xp = nivel * 10
+//     let moedas = nivel * 5
+//     return (xp, moedas)
+// }
+// let (xp, moedas) = calcularRecompensas(nivel: nivelInimigo)
+// print("Venceu \(nomeInimigo)! Ganhou \(xp) XP e \(moedas) moedas")
+
+// Exercício 6
+let nivelAtual = Int(readLine()!)!
+let experienciaAtual = Int(readLine()!)!
+func calcExperienciaParaSubirNivel(nivel: Int, experiencia: Int) -> Int {
+    let xpNecessaria = nivel * 100
+    let xpFaltante = xpNecessaria - experiencia
+    return xpFaltante
 }
-let (xp, moedas) = calcularRecompensas(nivel: nivelInimigo)
-print("Venceu \(nomeInimigo)! Ganhou \(xp) XP e \(moedas) moedas")
+let  xpFaltante = calcExperienciaParaSubirNivel(nivel: nivelAtual, experiencia: experienciaAtual)
+if(xpFaltante <= 0) {
+    print("Pode subir para o nivel \(nivelAtual + 1)!")
+} else {
+    print("Precisa de \(xpFaltante) XP para subir de nivel")
+}
