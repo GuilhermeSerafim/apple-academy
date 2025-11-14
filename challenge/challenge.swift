@@ -1,7 +1,3 @@
-// Criterio de avaliacao: o quanto vc absorveu da logicas que aprendeu durante a trilha
-// Historinha de RPG
-// abre.ai/ps-5
-
 import Foundation
 
 
@@ -87,13 +83,11 @@ enum RuptureError: Error {
 
 
 
-// Último estado jogado (para ver a linha do tempo fora da partida)
 var ultimoEstado: GameState? = nil
 
 // MARK: - Utilitários
 
 func limparTela() {
-    // Limpeza "manual" de terminal (funciona em qualquer lugar)
     for _ in 0..<10 {
         print("")
     }
@@ -406,5 +400,4 @@ func executarRupture() {
     }
 }
 
-// Início do programa
 executarRupture()
