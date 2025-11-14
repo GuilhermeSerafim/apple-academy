@@ -13,6 +13,12 @@ struct GameState {
     var eventos: [String] = []
 }
 
+enum RuptureError: Error {
+    case entradaInvalida
+    case eventoProibido
+    case fluxoQuebrado
+}
+
 
 let logoRupture = #"""
 __________              __                        
@@ -42,13 +48,13 @@ func pausar() {
     _ = readLine()
 }
 
-func lerOpcaoInt(min: Int, max: Int) -> Int {
-    while true {
-        if let entrada = readLine(), let valor = Int(entrada), valor >= min, valor <= max {
-            return valor
-        } else {
-            print("Por favor, digite um número entre \(min) e \(max).")
-        }
+func lerOpcaoInt(min: Int, max: Int) throws -> Int {
+   print("(Digite um número entre \(min) e \(max))")
+
+    if let entrada = readLine(), let valor = Int(entrada), valor >= min, valor <= max {
+        return valor
+    } else {
+        throw RuptureError.entradaInvalida
     }
 }
 
@@ -121,22 +127,21 @@ func mostrarCreditos() {
 
 // MARK: - Eventos históricos
 
-func jogarEventoFogo(estado: inout GameState) {
+func jogarEventoFogo(estado: inout GameState) throws {
     limparTela()
     print("=== EVENTO 1: A DESCOBERTA DO FOGO ===\n")
     print("""
 A primeira chama separa o humano do animal.
 A noite deixa de ser um abismo absoluto.
-
-Você, como Ruptura, pode decidir como o fogo entra na história.
 """)
 
-    print("1 - Preservar o fogo como ritual sagrado")
-    print("2 - Usar o fogo como arma tribal")
-    print("3 - Ensinar o fogo a outras espécies\n")
+    print("1 - Ritual sagrado")
+    print("2 - Arma tribal")
+    print("3 - Ensinar o fogo a outras espécies")
+    print("4 - Tocar no fogo primordial proibido 🔥🛑\n")
     print("Escolha: ")
 
-    let opcao = lerOpcaoInt(min: 1, max: 3)
+    let opcao = try lerOpcaoInt(min: 1, max: 4)
 
     switch opcao {
     case 1:
@@ -148,12 +153,14 @@ Você, como Ruptura, pode decidir como o fogo entra na história.
     case 3:
         estado.ruptura += 3
         estado.eventos.append("Você ensinou o fogo a outras espécies e criou a Era Primal Disruptiva.")
+    case 4:
+        throw RuptureError.eventoProibido
     default:
         break
     }
 }
 
-func jogarEventoEscrita(estado: inout GameState) {
+func jogarEventoEscrita(estado: inout GameState) throws {
     limparTela()
     print("=== EVENTO 2: A INVENÇÃO DA ESCRITA ===\n")
     print("""
@@ -168,7 +175,7 @@ Você pode decidir como a escrita nasce no mundo.
     print("3 - Alterar o alfabeto para reescrever o passado\n")
     print("Escolha: ")
 
-    let opcao = lerOpcaoInt(min: 1, max: 3)
+    let opcao = try lerOpcaoInt(min: 1, max: 3)
 
     switch opcao {
     case 1:
@@ -185,7 +192,7 @@ Você pode decidir como a escrita nasce no mundo.
     }
 }
 
-func jogarEventoRevolucaoIndustrial(estado: inout GameState) {
+func jogarEventoRevolucaoIndustrial(estado: inout GameState) throws {
     limparTela()
     print("=== EVENTO 3: A REVOLUÇÃO INDUSTRIAL ===\n")
     print("""
@@ -203,7 +210,7 @@ Como a Ruptura age aqui?
     print("3 - Fundir máquina e natureza em tecnofauna viva\n")
     print("Escolha: ")
 
-    let opcao = lerOpcaoInt(min: 1, max: 3)
+    let opcao = try lerOpcaoInt(min: 1, max: 3)
 
     switch opcao {
     case 1:
@@ -219,6 +226,7 @@ Como a Ruptura age aqui?
         break
     }
 }
+
 
 // MARK: - Final
 
@@ -274,25 +282,34 @@ func iniciarJogo() {
 
     limparTela()
     print("Bem-vindo(a) a RUPTURE.\n")
-    print("""
-Você é a anomalia que surge quando espaço e tempo colidem.
-Sua missão: intervir em três eventos históricos
-e ver que tipo de mundo nasce dessas escolhas.
-""")
     pausar()
 
-    // Por enquanto: 3 eventos fixos em sequência
-    jogarEventoFogo(estado: &estado)
-    jogarEventoEscrita(estado: &estado)
-    jogarEventoRevolucaoIndustrial(estado: &estado)
+    do {
+        try jogarEventoFogo(estado: &estado)
+        try jogarEventoEscrita(estado: &estado)
+        try jogarEventoRevolucaoIndustrial(estado: &estado)
+    }
+    catch RuptureError.eventoProibido {
+        print("""
+🔥🛑 VOCÊ TOCOU NO FOGO PROIBIDO!
+
+A linha do tempo entrou em colapso instantâneo.
+Você abriu uma fenda impossível no início da história.
+""")
+        pausar()
+        return
+    }
+    catch {
+        print("⚠️ Erro inesperado em um evento.")
+    }
 
     limparTela()
     mostrarFinal(estado: estado)
     pausar()
 
-    // Guarda o último estado jogado
     ultimoEstado = estado
 }
+
 
 // MARK: - Loop do programa
 
@@ -301,22 +318,31 @@ func executarRupture() {
 
     while executando {
         mostrarMenuPrincipal()
-        let opcao = lerOpcaoInt(min: 1, max: 5)
 
-        switch opcao {
-        case 1:
-            iniciarJogo()
-        case 2:
-            mostrarLore()
-        case 3:
-            mostrarLinhaDoTempo()
-        case 4:
-            mostrarCreditos()
-        case 5:
-            print("Encerrando Rupture... até a próxima dobra do espaço-tempo.")
-            executando = false
-        default:
-            break
+        do {
+            let opcao = try lerOpcaoInt(min: 1, max: 5)
+
+            switch opcao {
+            case 1:
+                iniciarJogo()
+            case 2:
+                mostrarLore()
+            case 3:
+                mostrarLinhaDoTempo()
+            case 4:
+                mostrarCreditos()
+            case 5:
+                print("Encerrando Rupture... até a próxima dobra do espaço-tempo.")
+                executando = false
+            default:
+                break
+            }
+
+        } catch RuptureError.entradaInvalida {
+            print("⚠️ Entrada inválida! Tente novamente.\n")
+            pausar()
+        } catch {
+            print("⚠️ Erro inesperado!")
         }
     }
 }
