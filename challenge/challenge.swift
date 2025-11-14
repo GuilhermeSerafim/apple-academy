@@ -271,51 +271,95 @@ func lerOpcaoInt(min: Int, max: Int) throws -> Int {
     }
 }
 
-func batalha(nomeDoMonstro: String, vidaMonstro: Int) {
+func batalha(nomeDoMonstro: String, vidaMonstro: Int) -> Bool {
     limparTela()
     print("=== BATALHA CONTRA \(nomeDoMonstro.uppercased()) ===\n")
 
     var vida = vidaMonstro
+    var vidaJogador = 40  // vida fixa do jogador
+    var tentativas = 1    // essa função roda 1 vez (mas pode ser reexecutada fora)
 
-    while vida > 0 {
-        print("Escolha sua arma:")
-        print("1 - Arma de curta distância (acerta 70%, dano 10-20)")
-        print("2 - Arma de longa distância (acerta 40%, dano 20-35)")
-        print("")
+    while tentativas > 0 {
 
-        let escolha = Int(readLine() ?? "") ?? 0
+        while vida > 0 && vidaJogador > 0 {
+            print("Sua vida: \(vidaJogador) | Vida do monstro: \(vida)")
+            print("Escolha sua arma:")
+            print("1 - Arma de curta distância (70% acerto, dano 10-20)")
+            print("2 - Arma de longa distância (40% acerto, dano 20-35)")
+            print("")
 
-        var acertou = false
-        var dano = 0
+            let escolha = Int(readLine() ?? "") ?? 0
 
-        switch escolha {
-        case 1:
-            acertou = Int.random(in: 1...100) <= 70
-            dano = Int.random(in: 10...20)
+            var acertou = false
+            var dano = 0
 
-        case 2:
-            acertou = Int.random(in: 1...100) <= 40
-            dano = Int.random(in: 20...35)
+            switch escolha {
+            case 1:
+                acertou = Int.random(in: 1...100) <= 70
+                dano = Int.random(in: 10...20)
+            case 2:
+                acertou = Int.random(in: 1...100) <= 40
+                dano = Int.random(in: 20...35)
+            default:
+                print("Entrada inválida! O monstro avança!\n")
+                continue
+            }
 
-        default:
-            print("Entrada inválida! O monstro avança!\n")
-            continue
+            if acertou {
+                // chance de crítico
+                let critico = Int.random(in: 1...100) <= 12
+                if critico {
+                    dano *= 2
+                    print("💥 CRÍTICO! Você causou \(dano) de dano devastador!")
+                } else {
+                    print("💥 Você acertou e causou \(dano) de dano!")
+                }
+                vida -= dano
+            } else {
+                print("❌ Você errou o ataque!")
+            }
+
+            // turno do monstro
+            if vida > 0 {
+                let danoMonstro = Int.random(in: 8...15)
+                vidaJogador -= danoMonstro
+                print("👁‍🗨 \(nomeDoMonstro) atacou e causou \(danoMonstro) de dano!")
+            }
+
+            print("")
+            sleep(1)
         }
 
-        if acertou {
-            vida -= dano
-            print("💥 Você acertou e causou \(dano) de dano! Vida restante do monstro: \(max(0, vida))")
-        } else {
-            print("❌ Você errou o ataque! O monstro ri do seu destino...")
+        // checa resultado interno
+        if vida <= 0 {
+            print("🔥 Você derrotou \(nomeDoMonstro)!\n")
+            pausar()
+            return true
         }
 
-        print("")
-        sleep(1)
+        if vidaJogador <= 0 {
+            print("💀 Você foi derrotado pelo \(nomeDoMonstro)...")
+
+            // pergunta sobre tentativa extra
+            print("\nDeseja tentar novamente?")
+            print("1 - Sim, tentar outra linha temporal")
+            print("2 - Não, aceitar o destino\n")
+
+            let escolha = Int(readLine() ?? "") ?? 0
+            if escolha == 1 {
+                tentativas += 1
+                vidaJogador = 40
+                vida = vidaMonstro
+                print("\n⟳ A realidade dobra... uma hipótese alternativa retorna.\n")
+            } else {
+                return false
+            }
+        }
     }
 
-    print("🔥 Você derrotou \(nomeDoMonstro)!\n")
-    pausar()
+    return false
 }
+
 
 
 // MARK: - Menus
@@ -389,7 +433,11 @@ func mostrarCreditos() {
 
 func jogarEventoFogo(estado: inout GameState) throws {
     limparTela()
-    batalha(nomeDoMonstro: "Fera da Chama Primal", vidaMonstro: 50)
+    if batalha(nomeDoMonstro: "Fera da Chama Primal", vidaMonstro: 50) == false {
+        print("⛔ A derrota nessa era impede a Ruptura de continuar.")
+        pausar()
+        return
+    }
     print("=== EVENTO 1: A DESCOBERTA DO FOGO ===\n")
     print(fogo)
     print("""
@@ -424,7 +472,11 @@ A noite deixa de ser um abismo absoluto.
 
 func jogarEventoEscrita(estado: inout GameState) throws {
     limparTela()
-    batalha(nomeDoMonstro: "Espectro das Runas Antigas", vidaMonstro: 60)
+    if batalha(nomeDoMonstro: "Espectro das Runas Antigas", vidaMonstro: 60) == false {
+        print("⛔ A derrota nessa era impede a Ruptura de continuar.")
+        pausar()
+        return
+    }
     print("=== EVENTO 2: A INVENÇÃO DA ESCRITA ===\n")
     print(escrita)
     print("""
@@ -458,7 +510,11 @@ Você pode decidir como a escrita nasce no mundo.
 
 func jogarEventoRevolucaoIndustrial(estado: inout GameState) throws {
     limparTela()
-    batalha(nomeDoMonstro: "Autômato de Ferro e Fuligem", vidaMonstro: 70)
+    if batalha(nomeDoMonstro: "Autômato de Ferro e Fuligem", vidaMonstro: 70) == false {
+        print("⛔ A derrota nessa era impede a Ruptura de continuar.")
+        pausar()
+        return
+    }
     print("=== EVENTO 3: A REVOLUÇÃO INDUSTRIAL ===\n")
     print(maquina)
     print("""
